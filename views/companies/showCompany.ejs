@@ -1,0 +1,59 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Jassore It Park</p>
+            <div class="list-group">
+                <li class="list-group-item active">Category 1</li>
+                <li class="list-group-item">Category 2</li>
+                <li class="list-group-item">Category 3</li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img src="<%= company.image %>" alt="Company Image">
+                <div class="caption-full">
+                    <h4 class="pull-right">2 yrs old</h4>
+                    <h3><a href="#"><%= company.name %></a></h3>
+                    <p><%= company.description %></p>
+                    <p><em>Submitted by <%= company.author.username %></em></p>
+                    <% if (currentUser && company.author.id.equals(currentUser._id)) { %>
+                        <a href="/companies/<%= company._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
+                        <form class="deleteBtn" action="/companies/<%= company._id %>/?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/companies/<%= company._id %>/reviews/new">Add New Review</a>
+                </div>
+                <hr>
+                <% company.reviews.forEach(review => { %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= review.author.username %></strong>
+                            <span class="pull-right">10 days ago</span>
+                            <p><%= review.comment %></p>
+                            <% if(currentUser && review.author.id.equals(currentUser._id)) { %>
+                                <a href="/companies/<%= company._id %>/reviews/<%= review._id %>/edit"
+                                class="btn btn-xs btn-warning">
+                                 Edit
+                                </a>
+                                <form class="deleteBtn"
+                                action="/companies/<%= company._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                method="POST">
+                                    <button class="btn btn-xs btn-danger">Delete</button>
+                                </form>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

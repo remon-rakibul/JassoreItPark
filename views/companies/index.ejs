@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Here you will find all the software companies of Sheikh Hasina Software Technology Park, Jassore</h1>
+            <p>
+                <a class="btn btn-primary btn-lg btn-block" href="/companies/new">Add Another Company</a>
+            </p>
+        </div>
+    </header>
+    <section class="row text-center" style="display: flex; flex-wrap: wrap;">
+        <% companies.forEach(company => { %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <img src="<%= company.image %>" alt="Company Image">
+                    <div class="caption">
+                        <h4><%= company.name %></h4>
+                    </div>
+                    <p>
+                        <a class="btn btn-primary" href="/companies/<%= company._id %>">More Info</a>
+                    </p>
+                </div>
+            </div>   
+        <% }); %>
+    </section>
+</div>
+
+<% include ../partials/footer %>
